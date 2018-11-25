@@ -1,16 +1,16 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 from http import HTTPStatus
 import webbrowser
 
-from config import AUTH_CODE_URI, PORT_NO
+from config import AUTH_CODE_URI, PORT_NO, SONOS_ACCOUNT_URI
 
 app = Flask(__name__)
 
 
 @app.route('/authorized', methods=['GET'])
-def callback():
+def authorized():
     print(request.query_string)
-    return ('', HTTPStatus.NO_CONTENT)
+    return render_template('authorized.html', redirect_url=SONOS_ACCOUNT_URI)
 
 
 if __name__ == '__main__':
