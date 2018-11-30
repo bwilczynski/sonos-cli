@@ -18,7 +18,7 @@ def create_token(code):
     print(response.json())
 
 
-def get_authorization_code(callback):
+def get_authorization_code():
     class ClientRedirectServer(HTTPServer):
         query_params = {}
 
@@ -43,11 +43,11 @@ def get_authorization_code(callback):
     while True:
         server.handle_request()
         if 'code' in server.query_params:
-            callback(server.query_params['code'][0])
-            break
+            return server.query_params['code'][0]
 
 
 if __name__ == '__main__':
     webbrowser.open_new(AUTH_CODE_URL)
 
-    get_authorization_code(create_token)
+    code = get_authorization_code()
+    create_token(code)
