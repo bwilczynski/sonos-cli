@@ -4,6 +4,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from os import path
 from urllib.parse import parse_qs
 
+import click
 import requests
 from requests.auth import HTTPBasicAuth
 
@@ -51,6 +52,7 @@ def _get_authorization_code():
             return server.query_params['code'][0]
 
 
+@click.command()
 def login():
     webbrowser.open_new(AUTH_CODE_URL)
     code = _get_authorization_code()
