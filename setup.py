@@ -7,7 +7,8 @@ setup(
     install_requires=[
         'click',
         'requests',
-        'requests_oauthlib'
+        'requests_oauthlib',
+        'tabulate'
     ],
     entry_points='''
         [console_scripts]
