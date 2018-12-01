@@ -6,7 +6,8 @@ setup(
     py_modules=['cli'],
     install_requires=[
         'click',
-        'requests'
+        'requests',
+        'requests_oauthlib'
     ],
     entry_points='''
         [console_scripts]

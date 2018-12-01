@@ -9,13 +9,12 @@ import requests
 from requests.auth import HTTPBasicAuth
 
 from auth.creds_store import save_access_token
-from config import CLIENT_ID, CLIENT_SECRET
+from config import CLIENT_ID, CLIENT_SECRET, SONOS_AUTH_API_BASE_URL
 
 PORT_NO = 5000
 CREATE_AUTH_CODE_REDIRECT_URL = 'https://haa5mxcg4k.execute-api.eu-west-1.amazonaws.com/default/authorized'
-SONOS_API_BASE_URL = 'https://api.sonos.com'
-AUTH_CODE_URL = f'{SONOS_API_BASE_URL}/login/v3/oauth?client_id={CLIENT_ID}&response_type=code&state=1&scope=playback-control-all&redirect_uri={CREATE_AUTH_CODE_REDIRECT_URL}'
-CREATE_TOKEN_URL = f'{SONOS_API_BASE_URL}/login/v3/oauth/access'
+AUTH_CODE_URL = f'{ SONOS_AUTH_API_BASE_URL }/login/v3/oauth?client_id={CLIENT_ID}&response_type=code&state=1&scope=playback-control-all&redirect_uri={CREATE_AUTH_CODE_REDIRECT_URL}'
+CREATE_TOKEN_URL = f'{ SONOS_AUTH_API_BASE_URL }/login/v3/oauth/access'
 
 
 def _create_token(code):
