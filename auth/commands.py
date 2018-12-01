@@ -8,6 +8,7 @@ import click
 import requests
 from requests.auth import HTTPBasicAuth
 
+from auth.creds_store import save_access_token
 from config import CLIENT_ID, CLIENT_SECRET
 
 PORT_NO = 5000
@@ -21,7 +22,7 @@ def _create_token(code):
     data = {'grant_type': 'authorization_code', 'code': code, 'redirect_uri': CREATE_AUTH_CODE_REDIRECT_URL}
     response = requests.post(CREATE_TOKEN_URL, data=data,
                              auth=HTTPBasicAuth(CLIENT_ID, CLIENT_SECRET))
-    print(response.json())
+    return response.json()
 
 
 def _get_authorization_code():
@@ -56,4 +57,5 @@ def _get_authorization_code():
 def login():
     webbrowser.open_new(AUTH_CODE_URL)
     code = _get_authorization_code()
-    _create_token(code)
+    data = _create_token(code)
+    save_access_token(data)
