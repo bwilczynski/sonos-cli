@@ -23,6 +23,7 @@ def list_groups(output):
 
 
 @groups.command('use')
+@login_required
 def use_group():
     sonos_groups = get_groups()['groups']
     group_names = [group['name'] for group in sonos_groups]

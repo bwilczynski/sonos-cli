@@ -18,6 +18,7 @@ def list_households():
 
 
 @households.command('use')
+@login_required
 def use_household():
     sonos_households = control.get_households()['households']
     household_names = [household['id'] for household in sonos_households]
