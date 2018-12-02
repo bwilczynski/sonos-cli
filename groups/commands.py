@@ -30,9 +30,9 @@ def use_group():
     for index, name in enumerate(group_names):
         click.echo(f'{index + 1}: {name}')
 
-    number = click.prompt('Which group do you want to use', type=int)
-    if 0 <= number < len(sonos_groups):
-        selected_group = sonos_groups[number]
+    number = click.prompt('Which group do you want to use', type=int, default=1)
+    if 0 <= number - 1 < len(sonos_groups):
+        selected_group = sonos_groups[number - 1]
         save_active_group(selected_group['id'])
         click.echo(f'Selected group: {selected_group["name"]}')
     else:
