@@ -1,6 +1,6 @@
 import click
 
-from auth import login
+from auth import login, logout
 from households import households
 from groups import groups
 
@@ -10,6 +10,7 @@ def cli():
 
 
 cli.add_command(login)
+cli.add_command(logout)
 cli.add_command(households)
 cli.add_command(groups)
 

@@ -8,7 +8,7 @@ import click
 import requests
 from requests.auth import HTTPBasicAuth
 
-from auth.creds_store import save_access_token
+from auth.creds_store import save_access_token, delete_access_token
 from config import CLIENT_ID, CLIENT_SECRET, SONOS_AUTH_API_BASE_URL
 
 PORT_NO = 5000
@@ -58,3 +58,8 @@ def login():
     code = _get_authorization_code()
     data = _create_token(code)
     save_access_token(data)
+
+
+@click.command()
+def logout():
+    delete_access_token()

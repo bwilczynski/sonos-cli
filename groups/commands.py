@@ -4,7 +4,7 @@ import click
 from requests_oauthlib import OAuth2Session
 from tabulate import tabulate
 
-from auth import get_access_token
+from auth import get_access_token, login_required
 from config import CLIENT_ID, SONOS_CONTROL_API_BASE_URL
 from households import get_active_household
 
@@ -16,6 +16,7 @@ def groups():
 
 @groups.command('list')
 @click.option('--output', '-o', default='table')
+@login_required
 def list_groups(output):
     household_id = get_active_household()
 

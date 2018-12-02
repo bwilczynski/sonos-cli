@@ -20,5 +20,14 @@ def save(filename, data):
 
 def load(filename):
     fullpath = _get_fullpath(filename)
-    with open(fullpath, 'rb') as file:
-        return json.load(file)
+    if os.path.isfile(fullpath):
+        with open(fullpath, 'rb') as file:
+            return json.load(file)
+    else:
+        return None
+
+
+def delete(filename):
+    fullpath = _get_fullpath(filename)
+    if os.path.isfile(fullpath):
+        os.remove(fullpath)
