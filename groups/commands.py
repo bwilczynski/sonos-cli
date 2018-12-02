@@ -1,11 +1,11 @@
 import json
 
 import click
-from requests_oauthlib import OAuth2Session
 from tabulate import tabulate
 
-from auth import get_access_token, login_required
-from config import CLIENT_ID, SONOS_CONTROL_API_BASE_URL
+from api import control
+from auth import login_required
+from groups.active_group_store import save_active_group
 from households import get_active_household
 
 
@@ -18,12 +18,30 @@ def groups():
 @click.option('--output', '-o', default='table')
 @login_required
 def list_groups(output):
-    household_id = get_active_household()
-
-    token = get_access_token()
-    client = OAuth2Session(CLIENT_ID, token=token)
-    result = client.get(f'{SONOS_CONTROL_API_BASE_URL}/households/{household_id}/groups').json()
+    result = get_groups()
     print_groups_json(result) if output == 'json' else print_groups_table(result)
+
+
+@groups.command('use')
+def use_group():
+    sonos_groups = get_groups()['groups']
+    group_names = [group['name'] for group in sonos_groups]
+
+    for index, name in enumerate(group_names):
+        click.echo(f'{index + 1}: {name}')
+
+    number = click.prompt('Which group do you want to use', type=int)
+    if 0 <= number < len(sonos_groups):
+        selected_group = sonos_groups[number]
+        save_active_group(selected_group['id'])
+        click.echo(f'Selected group: {selected_group["name"]}')
+    else:
+        click.echo('Index out of range.')
+
+
+def get_groups():
+    household_id = get_active_household()
+    return control.get_groups(household_id)
 
 
 def print_groups_json(data):

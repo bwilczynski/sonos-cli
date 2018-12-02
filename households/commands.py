@@ -1,8 +1,7 @@
 import click
-from requests_oauthlib import OAuth2Session
 
-from auth import get_access_token, login_required
-from config import CLIENT_ID, SONOS_CONTROL_API_BASE_URL
+from api import control
+from auth import login_required
 from households import active_household_store
 
 
@@ -14,9 +13,7 @@ def households():
 @households.command('list')
 @login_required
 def list_households():
-    token = get_access_token()
-    client = OAuth2Session(CLIENT_ID, token=token)
-    result = client.get(f'{SONOS_CONTROL_API_BASE_URL}/households').json()
+    result = control.get_households()
     print_households(result)
 
 
