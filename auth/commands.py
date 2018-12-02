@@ -5,31 +5,27 @@ from os import path
 from urllib.parse import parse_qs
 
 import click
-import requests
-from requests.auth import HTTPBasicAuth
 
-from auth.creds_store import save_access_token, delete_access_token
-from config import CLIENT_ID, CLIENT_SECRET, SONOS_AUTH_API_BASE_URL
+from api import auth
+from auth.creds_store import delete_access_token, save_access_token
 
 PORT_NO = 5000
-CREATE_AUTH_CODE_REDIRECT_URL = 'https://haa5mxcg4k.execute-api.eu-west-1.amazonaws.com/default/authorized'
-AUTH_CODE_URL = f'{ SONOS_AUTH_API_BASE_URL }/login/v3/oauth?client_id={CLIENT_ID}&response_type=code&state=1&scope=playback-control-all&redirect_uri={CREATE_AUTH_CODE_REDIRECT_URL}'
-CREATE_TOKEN_URL = f'{ SONOS_AUTH_API_BASE_URL }/login/v3/oauth/access'
 
 
-def _create_token(code):
-    data = {'grant_type': 'authorization_code', 'code': code, 'redirect_uri': CREATE_AUTH_CODE_REDIRECT_URL}
-    response = requests.post(CREATE_TOKEN_URL, data=data,
-                             auth=HTTPBasicAuth(CLIENT_ID, CLIENT_SECRET))
-    return response.json()
+def _get_access_token(code):
+    return auth.get_access_token(code)
 
 
-def _get_authorization_code():
+def _get_authorization_code(state):
+    class AuthenticationError(Exception):
+        pass
+
     class ClientRedirectServer(HTTPServer):
         query_params = {}
 
     class ClientRedirectHandler(BaseHTTPRequestHandler):
         def do_GET(self):
+            print(self.headers.get('Referer'))
             query_string = self.path.split('?', 1)[-1]
             self.server.query_params = parse_qs(query_string)
 
@@ -44,19 +40,24 @@ def _get_authorization_code():
             with open(html_file, 'rb') as html_view:
                 self.wfile.write(html_view.read())
 
-    port = 5000
-    server = ClientRedirectServer(('', port), ClientRedirectHandler)
+    server = ClientRedirectServer(('', PORT_NO), ClientRedirectHandler)
     while True:
         server.handle_request()
-        if 'code' in server.query_params:
-            return server.query_params['code'][0]
+        if 'code' and 'state' in server.query_params:
+            state_param = server.query_params['state'][0]
+            code_param = server.query_params['code'][0]
+            if state == state_param:
+                return code_param
+            else:
+                raise AuthenticationError()
 
 
 @click.command()
 def login():
-    webbrowser.open_new(AUTH_CODE_URL)
-    code = _get_authorization_code()
-    data = _create_token(code)
+    url, state = auth.login()
+    webbrowser.open_new(url)
+    code = _get_authorization_code(state)
+    data = _get_access_token(code)
     save_access_token(data)
 
 
