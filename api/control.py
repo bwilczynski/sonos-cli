@@ -40,3 +40,13 @@ def play(group_id):
 def pause(group_id):
     response = client.post(_url(f'/groups/{group_id}/playback/pause'))
     response.raise_for_status()
+
+
+def skip_to_next_track(group_id):
+    response = client.post(_url(f'/groups/{group_id}/playback/skipToNextTrack'))
+    response.raise_for_status()
+
+
+def skip_to_previous_track(group_id):
+    response = client.post(_url(f'/groups/{group_id}/playback/skipToPreviousTrack'))
+    response.raise_for_status()
