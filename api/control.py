@@ -1,7 +1,6 @@
-from http import HTTPStatus
-
 from requests_oauthlib import OAuth2Session
 
+from api.auto_refresh_token import auto_refresh_token
 from auth import get_access_token
 from config import CLIENT_ID, SONOS_CONTROL_API_BASE_URL
 
@@ -27,8 +26,9 @@ def get_households():
     return _json(response)
 
 
-def get_groups(household_Id):
-    response = client.get(_url(f'/households/{household_Id}/groups'))
+@auto_refresh_token(client=client)
+def get_groups(household_id):
+    response = client.get(_url(f'/households/{household_id}/groups'))
     return _json(response)
 
 
