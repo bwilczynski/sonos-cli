@@ -13,7 +13,7 @@ def _url(path):
 
 
 def _playback_url(group_id, path=None):
-    return _url(f'/groups/{group_id}/playback') + path
+    return _url(f'/groups/{group_id}/playback') + (path or '')
 
 
 def _json(response):
