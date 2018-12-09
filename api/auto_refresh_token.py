@@ -3,8 +3,8 @@ import functools
 import requests
 from oauthlib.oauth2 import TokenExpiredError
 
-from auth import save_access_token
-from config import SONOS_CLIENT_ID, SONOS_CLIENT_SECRET, REFRESH_TOKEN_URL
+from config.creds_store import save_access_token
+from settings import SONOS_CLIENT_ID, SONOS_CLIENT_SECRET, REFRESH_TOKEN_URL
 
 
 def auto_refresh_token(client):

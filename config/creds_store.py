@@ -1,6 +1,4 @@
-from os import path
-
-import local_store
+from config import local_store
 
 ACCESS_TOKEN_FILE = 'access_token.json'
 

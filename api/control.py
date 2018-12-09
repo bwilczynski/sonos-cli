@@ -1,8 +1,8 @@
 from requests_oauthlib import OAuth2Session
 
 from api.auto_refresh_token import auto_refresh_token
-from auth import get_access_token
-from config import SONOS_CLIENT_ID, SONOS_CONTROL_API_BASE_URL
+from config.creds_store import get_access_token
+from settings import SONOS_CLIENT_ID, SONOS_CONTROL_API_BASE_URL
 
 token = get_access_token()
 client = OAuth2Session(SONOS_CLIENT_ID, token=token)

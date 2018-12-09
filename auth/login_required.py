@@ -2,7 +2,7 @@ import functools
 
 import click
 
-from auth import creds_store
+from config import creds_store
 
 
 def login_required(func):
