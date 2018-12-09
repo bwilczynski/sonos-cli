@@ -50,3 +50,8 @@ def skip_to_next_track(group_id):
 def skip_to_previous_track(group_id):
     response = client.post(_url(f'/groups/{group_id}/playback/skipToPreviousTrack'))
     response.raise_for_status()
+
+
+def get_playlists(household_id):
+    response = client.get(_url(f'/households/{household_id}/playlists'))
+    return _json(response)
