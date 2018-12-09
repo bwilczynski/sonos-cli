@@ -2,7 +2,7 @@ import click
 
 from api import control
 from auth import login_required
-from decorators import format_result
+from decorators import format_result, output_option
 from groups.active_group_store import save_active_group
 from households import get_active_household
 
@@ -13,7 +13,7 @@ def groups():
 
 
 @groups.command('list')
-@click.option('--output', '-o', default='table')
+@output_option()
 @login_required
 @format_result(headers=['coordinatorId', 'id', 'name', 'playbackState'])
 def list_groups():

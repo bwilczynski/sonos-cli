@@ -2,6 +2,7 @@ import functools
 import json
 
 import click
+from click import option
 from tabulate import tabulate
 
 
@@ -32,3 +33,11 @@ def format_result(headers):
         return wrapper_format_result
 
     return decorator_format_result
+
+
+def output_option(*args, **kwargs):
+    def decorator_output_option(func):
+        kwargs.setdefault('default', 'table')
+        return option(*(args or ('--output', '-o',)), **kwargs)(func)
+
+    return decorator_output_option

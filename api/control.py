@@ -55,3 +55,8 @@ def skip_to_previous_track(group_id):
 def get_playlists(household_id):
     response = client.get(_url(f'/households/{household_id}/playlists'))
     return _json(response)
+
+
+def get_tracks(household_id, playlist_id):
+    response = client.post(_url(f'/households/{household_id}/playlists/getPlaylist'), json={'playlistId': playlist_id})
+    return _json(response)

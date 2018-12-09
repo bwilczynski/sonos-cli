@@ -2,7 +2,7 @@ import click
 
 from api import control
 from auth import login_required
-from decorators import format_result
+from decorators import format_result, output_option
 from households.active_household_store import save_active_household
 
 
@@ -12,7 +12,7 @@ def households():
 
 
 @households.command('list')
-@click.option('--output', '-o', default='table')
+@output_option()
 @login_required
 @format_result(headers=['id'])
 def list_households():
