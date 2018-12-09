@@ -8,11 +8,10 @@ setup(
         'click',
         'requests',
         'requests_oauthlib',
-        'tabulate',
-        'python-dotenv'
+        'tabulate'
     ],
     entry_points='''
         [console_scripts]
-        sonos-cli=cli:cli
+        sonos=cli:cli
     ''',
 )

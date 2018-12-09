@@ -2,14 +2,18 @@ from requests_oauthlib import OAuth2Session
 
 from api.auto_refresh_token import auto_refresh_token
 from auth import get_access_token
-from config import CLIENT_ID, SONOS_CONTROL_API_BASE_URL
+from config import SONOS_CLIENT_ID, SONOS_CONTROL_API_BASE_URL
 
 token = get_access_token()
-client = OAuth2Session(CLIENT_ID, token=token)
+client = OAuth2Session(SONOS_CLIENT_ID, token=token)
 
 
 def _url(path):
     return SONOS_CONTROL_API_BASE_URL + path
+
+
+def _playback_url(group_id, path=None):
+    return _url(f'/groups/{group_id}/playback') + path
 
 
 def _json(response):
@@ -29,27 +33,27 @@ def get_groups(household_id):
 
 
 def status(group_id):
-    response = client.get(_url(f'/groups/{group_id}/playback'))
+    response = client.get(_playback_url(group_id))
     return _json(response)
 
 
 def play(group_id):
-    response = client.post(_url(f'/groups/{group_id}/playback/play'))
+    response = client.post(_playback_url(group_id, '/play'))
     return _json(response)
 
 
 def pause(group_id):
-    response = client.post(_url(f'/groups/{group_id}/playback/pause'))
+    response = client.post(_playback_url(group_id, '/pause'))
     return _json(response)
 
 
 def skip_to_next_track(group_id):
-    response = client.post(_url(f'/groups/{group_id}/playback/skipToNextTrack'))
+    response = client.post(_playback_url(group_id, '/skipToNextTrack'))
     return _json(response)
 
 
 def skip_to_previous_track(group_id):
-    response = client.post(_url(f'/groups/{group_id}/playback/skipToPreviousTrack'))
+    response = client.post(_playback_url(group_id, '/skipToPreviousTrack'))
     return _json(response)
 
 
