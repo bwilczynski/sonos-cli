@@ -1,10 +1,11 @@
 import click
 
 from auth import login, logout
-from households import households
 from groups import groups
+from households import households
 from playback import playback
 from playlists import playlists
+
 
 @click.group()
 def cli():

@@ -8,7 +8,8 @@ setup(
         'click',
         'requests',
         'requests_oauthlib',
-        'tabulate'
+        'tabulate',
+        'python-dotenv'
     ],
     entry_points='''
         [console_scripts]
