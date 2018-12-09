@@ -61,3 +61,9 @@ def get_playlists(household_id):
 def get_tracks(household_id, playlist_id):
     response = client.post(_url(f'/households/{household_id}/playlists/getPlaylist'), json={'playlistId': playlist_id})
     return _json(response)
+
+
+def load_playlist(group_id, playlist_id, play_on_completion=None):
+    response = client.post(_url(f'/groups/{group_id}/playlists'),
+                           json={'playlistId': playlist_id, 'playOnCompletion': play_on_completion})
+    return _json(response)
