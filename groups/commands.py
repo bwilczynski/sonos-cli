@@ -1,10 +1,8 @@
-import json
-
 import click
-from tabulate import tabulate
 
 from api import control
 from auth import login_required
+from decorators import format_result
 from groups.active_group_store import save_active_group
 from households import get_active_household
 
@@ -17,23 +15,24 @@ def groups():
 @groups.command('list')
 @click.option('--output', '-o', default='table')
 @login_required
-def list_groups(output):
+@format_result(headers=['coordinatorId', 'id', 'name', 'playbackState'])
+def list_groups():
     result = get_groups()
-    print_groups_json(result) if output == 'json' else print_groups_table(result)
+    return result['groups']
 
 
 @groups.command('use')
 @login_required
 def use_group():
-    sonos_groups = get_groups()['groups']
-    group_names = [group['name'] for group in sonos_groups]
+    result = get_groups()['groups']
+    group_names = [group['name'] for group in result]
 
     for index, name in enumerate(group_names):
         click.echo(f'{index + 1}: {name}')
 
     number = click.prompt('Which group do you want to use', type=int, default=1)
-    if 0 <= number - 1 < len(sonos_groups):
-        selected_group = sonos_groups[number - 1]
+    if 0 <= number - 1 < len(result):
+        selected_group = result[number - 1]
         save_active_group(selected_group['id'])
         click.echo(f'Selected group: {selected_group["name"]}')
     else:
@@ -43,14 +42,3 @@ def use_group():
 def get_groups():
     household_id = get_active_household()
     return control.get_groups(household_id)
-
-
-def print_groups_json(data):
-    prettified = json.dumps(data, indent=2, sort_keys=True)
-    click.echo(prettified)
-
-
-def print_groups_table(data):
-    headers = ['id', 'name', 'playbackState']
-    rows = [[group[header] for header in headers] for group in data['groups']]
-    click.echo(tabulate(rows, headers=headers))
