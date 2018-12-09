@@ -4,9 +4,7 @@ import requests
 from oauthlib.oauth2 import TokenExpiredError
 
 from auth import save_access_token
-from config import CLIENT_ID, CLIENT_SECRET, SONOS_AUTH_API_BASE_URL
-
-REFRESH_TOKEN_URL = f'{SONOS_AUTH_API_BASE_URL}/login/v3/oauth/access'
+from config import CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN_URL
 
 
 def auto_refresh_token(client):

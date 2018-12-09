@@ -8,8 +8,7 @@ import click
 
 from api import auth
 from auth.creds_store import delete_access_token, save_access_token
-
-PORT_NO = 5000
+from config import CLIENT_REDIRECT_PORT_NO
 
 
 def _get_access_token(code):
@@ -40,7 +39,7 @@ def _get_authorization_code(state):
             with open(html_file, 'rb') as html_view:
                 self.wfile.write(html_view.read())
 
-    server = ClientRedirectServer(('', PORT_NO), ClientRedirectHandler)
+    server = ClientRedirectServer(('', CLIENT_REDIRECT_PORT_NO), ClientRedirectHandler)
     while True:
         server.handle_request()
         if 'code' and 'state' in server.query_params:

@@ -1,13 +1,8 @@
 from requests_oauthlib import OAuth2Session
 
-from config import CLIENT_ID, CLIENT_SECRET, SONOS_AUTH_API_BASE_URL
+from config import CLIENT_ID, CLIENT_SECRET, REDIRECT_URL, AUTH_URL, ACCESS_TOKEN_URL, CLIENT_SCOPES
 
-REDIRECT_URL = 'https://haa5mxcg4k.execute-api.eu-west-1.amazonaws.com/default/authorized'
-AUTH_URL = f'{SONOS_AUTH_API_BASE_URL}/login/v3/oauth'
-ACCESS_TOKEN_URL = f'{SONOS_AUTH_API_BASE_URL}/login/v3/oauth/access'
-
-scope = ['playback-control-all']
-client = OAuth2Session(CLIENT_ID, redirect_uri=REDIRECT_URL, scope=scope)
+client = OAuth2Session(CLIENT_ID, redirect_uri=REDIRECT_URL, scope=CLIENT_SCOPES)
 
 
 def login():
