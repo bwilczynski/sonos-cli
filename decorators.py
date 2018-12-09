@@ -6,7 +6,7 @@ from click import option
 from tabulate import tabulate
 
 
-def format_result(headers):
+def format_result(headers, single=False):
     def decorator_format_result(func):
         @functools.wraps(func)
         def wrapper_format_result(*args, **kwargs):
@@ -15,7 +15,8 @@ def format_result(headers):
                 click.echo(prettified)
 
             def print_table():
-                rows = [[group[header] for header in headers] for group in data]
+                table_data = [data] if single else data
+                rows = [[row[header] for header in headers] for row in table_data]
                 click.echo(tabulate(rows, headers=headers))
 
             if 'output' in kwargs:
