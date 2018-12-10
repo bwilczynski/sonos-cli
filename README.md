@@ -38,13 +38,42 @@ $ sonos get --help
 
 ### Available commands
 
-Get information from your Sonos:
+#### Get information from your Sonos:
 
 ```bash
 $ sonos get [groups | households | playlists | tracks]
 ```
 
-Control playback:
+Format displayed result using `--output` option:
+
+
+```bash
+$ sonos get groups --output table
+
+coordinatorId             id                                   name              playbackState
+------------------------  -----------------------------------  ----------------  ----------------------
+RINCON_B8E937E6D36202100  RINCON_B8E937E6D36202100:23          Bedroom.          PLAYBACK_STATE_PAUSED
+RINCON_B8E937E6D40E02100  RINCON_B8E937E6D40E02100:128         Bathroom          PLAYBACK_STATE_IDLE
+RINCON_B8E937DA7E6802100  RINCON_B8E937DA7E6802100:17          Bathroom 2.       PLAYBACK_STATE_PAUSED
+RINCON_347E5C90FA9502100  RINCON_347E5C90FA9502100:4142323492  Living Room       PLAYBACK_STATE_PLAYING
+```
+
+```bash
+$ sonos get groups --output json
+
+[
+  {
+    "coordinatorId": "RINCON_B8E937E6D36202100",
+    "id": "RINCON_B8E937E6D36202100:23",
+    "name": "Bedroom",
+    "playbackState": "PLAYBACK_STATE_PAUSED",
+    ...
+  }
+  ...
+}
+```
+
+#### Control playback:
 
 ```bash
 $ sonos play
@@ -53,16 +82,16 @@ $ sonos next
 $ sonos prev
 ```
 
-Set active group / household:
+#### Set active group / household:
 
 ```bash
 set [group | household]
 ```
 
-Get playback status:
+#### Get playback status:
 
 ```bash
-$ status
+$ sonos status
 ```
 
 
