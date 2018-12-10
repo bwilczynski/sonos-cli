@@ -2,8 +2,14 @@ import functools
 import json
 
 import click
+import requests
 from click import option
+from oauthlib.oauth2 import TokenExpiredError
 from tabulate import tabulate
+
+from config import creds_store
+from config.creds_store import save_access_token
+from settings import REFRESH_TOKEN_URL, SONOS_CLIENT_ID, SONOS_CLIENT_SECRET
 
 
 def format_result(headers, single=False):
@@ -42,3 +48,32 @@ def output_option(*args, **kwargs):
         return option(*(args or ('--output', '-o',)), **kwargs)(func)
 
     return decorator_output_option
+
+
+def login_required(func):
+    @functools.wraps(func)
+    def wrapper_login_required(*args, **kwargs):
+        if creds_store.get_access_token() is None:
+            click.echo('Not logged in! Run `sonos-cli login` first.')
+            return None
+        return func(*args, **kwargs)
+
+    return wrapper_login_required
+
+
+def auto_refresh_token(client):
+    def decorator_auto_refresh_token(func):
+        @functools.wraps(func)
+        def wrapper_auto_refresh_token(*args, **kwargs):
+            try:
+                return func(*args, **kwargs)
+            except TokenExpiredError:
+                token = client.refresh_token(REFRESH_TOKEN_URL,
+                                             auth=requests.auth.HTTPBasicAuth(SONOS_CLIENT_ID, SONOS_CLIENT_SECRET))
+                client.token = token
+                save_access_token(token)
+                return func(*args, **kwargs)
+
+        return wrapper_auto_refresh_token
+
+    return decorator_auto_refresh_token

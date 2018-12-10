@@ -1,8 +1,6 @@
 import click
 
-from auth import login, logout
-from commands import get, set, play, pause, next, prev, status
-from playlists import playlists
+from commands import login, logout, get, set, play, pause, next, prev, status
 
 
 @click.group()
@@ -12,8 +10,6 @@ def cli():
 
 cli.add_command(login)
 cli.add_command(logout)
-cli.add_command(playlists)
-
 cli.add_command(get)
 cli.add_command(set)
 cli.add_command(next)

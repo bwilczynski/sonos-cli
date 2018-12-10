@@ -1,9 +1,9 @@
 import click
 
 from api import control
-from auth import login_required
 from config.active_group_store import save_active_group
 from config.active_household_store import save_active_household, get_active_household
+from decorators import login_required
 
 
 @click.group()
