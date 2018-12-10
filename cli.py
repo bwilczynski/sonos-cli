@@ -1,10 +1,6 @@
 import click
 
-from auth import login, logout
-from groups import groups
-from households import households
-from playback import playback
-from playlists import playlists
+from commands import login, logout, get, set, play, pause, next, prev, status
 
 
 @click.group()
@@ -14,10 +10,13 @@ def cli():
 
 cli.add_command(login)
 cli.add_command(logout)
-cli.add_command(households)
-cli.add_command(groups)
-cli.add_command(playback)
-cli.add_command(playlists)
+cli.add_command(get)
+cli.add_command(set)
+cli.add_command(next)
+cli.add_command(pause)
+cli.add_command(play)
+cli.add_command(prev)
+cli.add_command(status)
 
 if __name__ == '__main__':
     cli()

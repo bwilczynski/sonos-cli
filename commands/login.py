@@ -7,8 +7,8 @@ from urllib.parse import parse_qs
 import click
 
 from api import auth
-from auth.creds_store import delete_access_token, save_access_token
-from config import CLIENT_REDIRECT_PORT_NO
+from config.creds_store import save_access_token
+from settings import CLIENT_REDIRECT_PORT_NO
 
 
 def _get_access_token(code):
@@ -58,8 +58,3 @@ def login():
     code = _get_authorization_code(state)
     data = _get_access_token(code)
     save_access_token(data)
-
-
-@click.command()
-def logout():
-    delete_access_token()

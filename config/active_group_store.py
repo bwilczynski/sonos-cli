@@ -1,4 +1,4 @@
-import local_store
+from config import local_store
 
 ACTIVE_GROUP_FILE = 'group.json'
 
