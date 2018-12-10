@@ -10,6 +10,13 @@ $ sonos [OPTIONS] COMMAND [ARGS]
 
 ### Get Started
 
+[Setup integration](https://developer.sonos.com/build/direct-control/authorize/) with Sonos API and set the following environment variables before running `sonos`:
+
+```bash
+export CLIENT_ID={YOUR_CLIENT_ID}
+export CLIENT_SECRET={YOUR_CLIENT_SECRET}
+```
+
 Login to your Sonos service (opens a web browser sending user to Sonos login service):
 
 ```bash
