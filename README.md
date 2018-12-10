@@ -85,7 +85,7 @@ $ sonos prev
 #### Set active group / household:
 
 ```bash
-set [group | household]
+$ sonos set [group | household]
 ```
 
 #### Get playback status:
