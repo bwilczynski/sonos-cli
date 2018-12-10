@@ -17,12 +17,9 @@ def household():
     result = control.get_households()['households']
     household_names = [household['id'] for household in result]
 
-    for index, name in enumerate(household_names):
-        click.echo(f'{index + 1}: {name}')
-
-    number = click.prompt('Which household do you want to use', type=int, default=1)
-    if 0 <= number - 1 < len(result):
-        selected_household = household_names[number - 1]
+    index = show_prompt('Which household do you want to use', household_names)
+    if index != -1:
+        selected_household = household_names[index]
         save_active_household(selected_household)
         click.echo(f'Selected household: {selected_household}')
     else:
@@ -36,13 +33,19 @@ def group():
     result = control.get_groups(household_id)['groups']
     group_names = [group['name'] for group in result]
 
-    for index, name in enumerate(group_names):
-        click.echo(f'{index + 1}: {name}')
-
-    number = click.prompt('Which group do you want to use', type=int, default=1)
-    if 0 <= number - 1 < len(result):
-        selected_group = result[number - 1]
+    index = show_prompt('Which group do you want to use', group_names)
+    if index != -1:
+        selected_group = result[index]
         save_active_group(selected_group['id'])
         click.echo(f'Selected group: {selected_group["name"]}')
     else:
         click.echo('Index out of range.')
+
+
+def show_prompt(message, options):
+    for index, name in enumerate(options):
+        click.echo(f'{index + 1}: {name}')
+
+    number = click.prompt(message, type=int, default=1)
+    index = number - 1
+    return index if 0 <= index < len(options) else -1
