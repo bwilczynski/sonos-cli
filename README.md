@@ -94,4 +94,13 @@ $ sonos set [group | household]
 $ sonos status
 ```
 
+#### Control group volume
 
+```bash
+$ sonos volume
+20
+```
+
+```bash
+$ sonos volume 25
+```

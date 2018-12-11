@@ -7,3 +7,4 @@ from .play import play
 from .prev import prev
 from .set import set
 from .status import status
+from .volume import volume

@@ -1,6 +1,6 @@
 import click
 
-from commands import login, logout, get, set, play, pause, next, prev, status
+from commands import login, logout, get, set, play, pause, next, prev, status, volume
 
 
 @click.group()
@@ -17,6 +17,7 @@ cli.add_command(pause)
 cli.add_command(play)
 cli.add_command(prev)
 cli.add_command(status)
+cli.add_command(volume)
 
 if __name__ == '__main__':
     cli()
