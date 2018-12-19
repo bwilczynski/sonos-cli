@@ -1,8 +1,13 @@
 from setuptools import setup
 
+VERSION = '0.1'
+
 setup(
     name='sonos-cli',
-    version='0.1',
+    version=VERSION,
+    author='Bartlomiej Wilczynski',
+    author_email='me@bwilczynski.com',
+    url='https://github.com/bwilczynski/sonos-cli',
     py_modules=['cli'],
     install_requires=[
         'click',
