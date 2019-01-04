@@ -1,14 +1,25 @@
-from setuptools import setup
+import os
 
-VERSION = '0.1'
+import setuptools
 
-setup(
+VERSION = '0.2.0'
+DESCRIPTION = 'Sonos Command-Line Tools'
+
+here = os.path.abspath(os.path.dirname(__file__))
+with open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
+
+setuptools.setup(
+    python_requires='>=3.0',
     name='sonos-cli',
+    description=DESCRIPTION,
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     version=VERSION,
     author='Bartlomiej Wilczynski',
     author_email='me@bwilczynski.com',
     url='https://github.com/bwilczynski/sonos-cli',
-    py_modules=['cli'],
+    packages=setuptools.find_packages(),
     install_requires=[
         'click',
         'requests',
