@@ -60,6 +60,18 @@ def login_required(func):
     return wrapper_login_required
 
 
+def config_required(func):
+    @functools.wraps(func)
+    def wrapper_config_required(*args, **kwargs):
+        if SONOS_CLIENT_ID is None or SONOS_CLIENT_SECRET is None:
+            click.echo('Not configured. '
+                       'Run `sonos config` or set environment variables SONOS_CLIENT_ID and SONOS_CLIENT_SECRET.')
+            return None
+        return func(*args, **kwargs)
+
+    return wrapper_config_required
+
+
 def auto_refresh_token(client):
     def decorator_auto_refresh_token(func):
         @functools.wraps(func)

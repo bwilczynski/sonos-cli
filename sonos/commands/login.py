@@ -8,6 +8,7 @@ import click
 
 from sonos.api import auth
 from sonos.config import creds_store
+from sonos.decorators import config_required
 from sonos.settings import CLIENT_REDIRECT_PORT_NO
 
 
@@ -56,6 +57,7 @@ def _get_authorization_code(state):
 
 
 @click.command()
+@config_required
 def login():
     url, state = auth.login()
     webbrowser.open_new(url)
