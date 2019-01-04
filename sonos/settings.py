@@ -1,7 +1,11 @@
 import os
 
-SONOS_CLIENT_ID = os.getenv('SONOS_CLIENT_ID')
-SONOS_CLIENT_SECRET = os.getenv('SONOS_CLIENT_SECRET')
+from sonos.config import config_store
+
+cfg = config_store.get_config() or {}
+
+SONOS_CLIENT_ID = os.getenv('SONOS_CLIENT_ID') or cfg.get('client_id')
+SONOS_CLIENT_SECRET = os.getenv('SONOS_CLIENT_SECRET') or cfg.get('client_secret')
 
 SONOS_AUTH_API_BASE_URL = 'https://api.sonos.com'
 SONOS_CONTROL_API_BASE_URL = 'https://api.ws.sonos.com/control/api/v1'

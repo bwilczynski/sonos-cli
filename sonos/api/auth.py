@@ -11,4 +11,6 @@ def login():
 
 
 def get_access_token(code):
+    print(SONOS_CLIENT_ID)
+    print(SONOS_CLIENT_SECRET)
     return client.fetch_token(ACCESS_TOKEN_URL, code=code, username=SONOS_CLIENT_ID, password=SONOS_CLIENT_SECRET)

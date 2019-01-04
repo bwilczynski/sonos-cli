@@ -1,3 +1,4 @@
+from .config import set_config
 from .get import get
 from .login import login
 from .logout import logout
