@@ -1,8 +1,8 @@
 import click
 
-from api import control
-from config.active_household_store import get_active_household
-from decorators import output_option, format_result, login_required
+from sonos.api import control
+from sonos.config import active_household_store
+from sonos.decorators import output_option, format_result, login_required
 
 
 @click.group()
@@ -24,7 +24,7 @@ def households():
 @login_required
 @format_result(headers=['coordinatorId', 'id', 'name', 'playbackState'])
 def groups():
-    household_id = get_active_household()
+    household_id = active_household_store.get_active_household()
     result = control.get_groups(household_id)
     return result['groups']
 
@@ -34,7 +34,7 @@ def groups():
 @login_required
 @format_result(headers=['id', 'name'])
 def playlists():
-    household_id = get_active_household()
+    household_id = active_household_store.get_active_household()
     result = control.get_playlists(household_id)
     return result['playlists']
 
@@ -45,6 +45,6 @@ def playlists():
 @login_required
 @format_result(headers=['name', 'album', 'artist'])
 def tracks(playlist_id):
-    household_id = get_active_household()
+    household_id = active_household_store.get_active_household()
     result = control.get_tracks(household_id, playlist_id)
     return result['tracks']

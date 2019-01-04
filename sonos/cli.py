@@ -1,6 +1,6 @@
 import click
 
-from commands import login, logout, get, set, play, pause, next, prev, status, volume
+from sonos.commands import login, logout, get, set, play, pause, next, prev, status, volume
 
 
 @click.group()

@@ -1,4 +1,4 @@
-from config import local_store
+from sonos.config import local_store
 
 ACTIVE_HOUSEHOLD_FILE = 'household.json'
 

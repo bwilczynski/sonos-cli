@@ -17,6 +17,6 @@ setup(
     ],
     entry_points='''
         [console_scripts]
-        sonos=cli:cli
+        sonos=sonos.cli:cli
     ''',
 )

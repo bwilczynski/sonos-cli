@@ -7,9 +7,8 @@ from click import option
 from oauthlib.oauth2 import TokenExpiredError
 from tabulate import tabulate
 
-from config import creds_store
-from config.creds_store import save_access_token
-from settings import REFRESH_TOKEN_URL, SONOS_CLIENT_ID, SONOS_CLIENT_SECRET
+from sonos.config import creds_store
+from sonos.settings import REFRESH_TOKEN_URL, SONOS_CLIENT_ID, SONOS_CLIENT_SECRET
 
 
 def format_result(headers, single=False):
@@ -71,7 +70,7 @@ def auto_refresh_token(client):
                 token = client.refresh_token(REFRESH_TOKEN_URL,
                                              auth=requests.auth.HTTPBasicAuth(SONOS_CLIENT_ID, SONOS_CLIENT_SECRET))
                 client.token = token
-                save_access_token(token)
+                creds_store.save_access_token(token)
                 return func(*args, **kwargs)
 
         return wrapper_auto_refresh_token

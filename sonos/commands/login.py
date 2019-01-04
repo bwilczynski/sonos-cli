@@ -6,9 +6,9 @@ from urllib.parse import parse_qs
 
 import click
 
-from api import auth
-from config.creds_store import save_access_token
-from settings import CLIENT_REDIRECT_PORT_NO
+from sonos.api import auth
+from sonos.config import creds_store
+from sonos.settings import CLIENT_REDIRECT_PORT_NO
 
 
 class AuthenticationError(Exception):
@@ -62,7 +62,7 @@ def login():
     try:
         code = _get_authorization_code(state)
         data = _get_access_token(code)
-        save_access_token(data)
+        creds_store.save_access_token(data)
         click.echo('Login successful.')
     except AuthenticationError:
         click.echo('Access was denied!')

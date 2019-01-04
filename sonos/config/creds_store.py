@@ -1,4 +1,4 @@
-from config import local_store
+from sonos.config import local_store
 
 ACCESS_TOKEN_FILE = 'access_token.json'
 
