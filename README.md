@@ -2,6 +2,14 @@
 
 Control your Sonos players from command-line. Uses [Sonos Control API](https://developer.sonos.com/reference/control-api/) to control Sonos groups.
 
+## Installation
+
+Using `pip` (requires Python 3):
+
+```sh
+pip install sonos-cli
+```
+
 ## Usage
 
 ```bash
@@ -10,11 +18,15 @@ $ sonos [OPTIONS] COMMAND [ARGS]
 
 ### Get Started
 
-[Setup integration](https://developer.sonos.com/build/direct-control/authorize/) with Sonos API and set the following environment variables before running `sonos`:
+[Setup integration](https://developer.sonos.com/build/direct-control/authorize/) with Sonos API 
+and run `sonos config` to provide 
+your application's Client ID and Client Secret.
+
+Alternatively set the following environment variables before running `sonos`:
 
 ```bash
-export CLIENT_ID={YOUR_CLIENT_ID}
-export CLIENT_SECRET={YOUR_CLIENT_SECRET}
+export SONOS_CLIENT_ID={YOUR_CLIENT_ID}
+export SONOS_CLIENT_SECRET={YOUR_CLIENT_SECRET}
 ```
 
 Login to your Sonos service (opens a web browser sending user to Sonos login service):
