@@ -4,6 +4,7 @@ from sonos.commands import login, logout, get, set, play, pause, next, prev, sta
 
 
 @click.group()
+@click.version_option()
 def cli():
     pass
 
