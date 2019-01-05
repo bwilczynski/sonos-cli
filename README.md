@@ -4,6 +4,14 @@ Control your Sonos players from command-line. Uses [Sonos Control API](https://d
 
 ## Installation
 
+Using `Homebrew` on OSX:
+
+```sh
+brew tap bwilczynski/tap
+brew install sonos-cli
+```
+
+
 Using `pip` (requires Python 3):
 
 ```sh
