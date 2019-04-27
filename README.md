@@ -2,6 +2,8 @@
 
 Control your Sonos players from command-line. Uses [Sonos Control API](https://developer.sonos.com/reference/control-api/) to control Sonos groups.
 
+[![Build Status](https://dev.azure.com/bwilczyn/sonos-cli/_apis/build/status/bwilczynski.sonos-cli?branchName=master)](https://dev.azure.com/bwilczyn/sonos-cli/_build/latest?definitionId=2&branchName=master)
+
 ## Installation
 
 Using `Homebrew` on OSX:
