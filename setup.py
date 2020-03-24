@@ -30,4 +30,5 @@ setuptools.setup(
         [console_scripts]
         sonos=sonos.cli:cli
     ''',
+    include_package_data=True,
 )
