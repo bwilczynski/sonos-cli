@@ -6,6 +6,7 @@ from sonos.settings import SONOS_CLIENT_ID, SONOS_CONTROL_API_BASE_URL
 
 token = creds_store.get_access_token()
 client = OAuth2Session(SONOS_CLIENT_ID, token=token)
+client.headers['Content-Type'] = 'application/json'
 
 
 def _url(path):
