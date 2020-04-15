@@ -13,7 +13,6 @@ brew tap bwilczynski/tap
 brew install sonos-cli
 ```
 
-
 Using `pip` (requires Python 3):
 
 ```sh
@@ -28,15 +27,17 @@ $ sonos [OPTIONS] COMMAND [ARGS]
 
 ### Get Started
 
-[Setup integration](https://developer.sonos.com/build/direct-control/authorize/) with Sonos API 
-and run `sonos config` to provide 
+[Setup integration](https://developer.sonos.com/build/direct-control/authorize/) with Sonos API
+and run `sonos config` to provide
 your application's Client ID and Client Secret.
 
 Make sure that:
 
-Redirect URI is set to: http://localhost:5000
-YOUR_CLIENT_ID: set to your **Key** (and not key name)
-YOUR_CLIENT_SECRET: set to your **Secret**
+- Redirect URI is set to: http://localhost:5000
+- YOUR_CLIENT_ID: set to your **Key** (and not key name)
+- YOUR_CLIENT_SECRET: set to your **Secret**
+
+![Sonos Integration](/screenshots/sonos-integration.png?raw=true)
 
 Alternatively set the following environment variables before running `sonos`:
 
@@ -73,7 +74,6 @@ $ sonos get [groups | households | playlists | tracks]
 ```
 
 Format displayed result using `--output` option:
-
 
 ```bash
 $ sonos get groups --output table
