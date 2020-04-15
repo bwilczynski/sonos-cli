@@ -32,6 +32,12 @@ $ sonos [OPTIONS] COMMAND [ARGS]
 and run `sonos config` to provide 
 your application's Client ID and Client Secret.
 
+Make sure that:
+
+Redirect URI is set to: http://localhost:5000
+YOUR_CLIENT_ID: set to your **Key** (and not key name)
+YOUR_CLIENT_SECRET: set to your **Secret**
+
 Alternatively set the following environment variables before running `sonos`:
 
 ```bash
