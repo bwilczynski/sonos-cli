@@ -93,3 +93,8 @@ def get_group_volume(group_id):
 def set_group_volume(group_id, value):
     response = client.post(_url(f'/groups/{group_id}/groupVolume'), json={'volume': value})
     return _json(response)
+
+@auto_refresh_token(client)
+def set_group_relative_volume(group_id, value):
+    response = client.post(_url(f'/groups/{group_id}/groupVolume/relative'), json={'volumeDelta': value})
+    return _json(response)

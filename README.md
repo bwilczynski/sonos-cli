@@ -132,3 +132,12 @@ $ sonos volume
 ```bash
 $ sonos volume 25
 ```
+
+The volume can also be set relative to its current value by prefixing it with
+`+` or `-`. To avoid the parameter being treated as a flag when setting
+a negative value, using `--` before.
+
+```bash
+$ sonos volume +5
+$ sonos volume -- -5
+```
