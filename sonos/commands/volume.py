@@ -1,6 +1,6 @@
 import click
 
-from sonos.api.control import get_group_volume, set_group_volume
+from sonos.api.control import get_group_volume, set_group_volume, set_group_relative_volume
 from sonos.config import active_group_store
 
 
