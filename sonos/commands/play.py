@@ -6,7 +6,7 @@ from sonos.decorators import login_required
 
 
 @click.command()
-@click.option('--playlist-id', '-p')
+@click.option("--playlist-id", "-p")
 @login_required
 def play(playlist_id):
     group_id = active_group_store.get_active_group()

@@ -13,38 +13,38 @@ def get():
 @get.command()
 @output_option()
 @login_required
-@format_result(headers=['id'])
+@format_result(headers=["id"])
 def households():
     result = control.get_households()
-    return result['households']
+    return result["households"]
 
 
 @get.command()
 @output_option()
 @login_required
-@format_result(headers=['coordinatorId', 'id', 'name', 'playbackState'])
+@format_result(headers=["coordinatorId", "id", "name", "playbackState"])
 def groups():
     household_id = active_household_store.get_active_household()
     result = control.get_groups(household_id)
-    return result['groups']
+    return result["groups"]
 
 
 @get.command()
 @output_option()
 @login_required
-@format_result(headers=['id', 'name'])
+@format_result(headers=["id", "name"])
 def playlists():
     household_id = active_household_store.get_active_household()
     result = control.get_playlists(household_id)
-    return result['playlists']
+    return result["playlists"]
 
 
 @get.command()
-@click.option('--playlist-id', '-p', required=True)
+@click.option("--playlist-id", "-p", required=True)
 @output_option()
 @login_required
-@format_result(headers=['name', 'album', 'artist'])
+@format_result(headers=["name", "album", "artist"])
 def tracks(playlist_id):
     household_id = active_household_store.get_active_household()
     result = control.get_tracks(household_id, playlist_id)
-    return result['tracks']
+    return result["tracks"]

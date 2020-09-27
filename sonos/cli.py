@@ -1,6 +1,18 @@
 import click
 
-from sonos.commands import login, logout, get, set, play, pause, next, prev, status, volume, set_config
+from sonos.commands import (
+    login,
+    logout,
+    get,
+    set,
+    play,
+    pause,
+    next,
+    prev,
+    status,
+    volume,
+    set_config,
+)
 
 
 @click.group()
@@ -21,5 +33,5 @@ cli.add_command(status)
 cli.add_command(volume)
 cli.add_command(set_config)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cli()

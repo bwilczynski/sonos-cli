@@ -1,6 +1,6 @@
 from sonos.config import local_store
 
-ACTIVE_GROUP_FILE = 'group.json'
+ACTIVE_GROUP_FILE = "group.json"
 
 
 def save_active_group(group_id):

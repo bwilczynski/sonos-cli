@@ -1,7 +1,6 @@
+import click
 import functools
 import json
-
-import click
 import requests
 from click import option
 from oauthlib.oauth2 import TokenExpiredError
@@ -24,14 +23,14 @@ def format_result(headers, single=False):
                 rows = [[row[header] for header in headers] for row in table_data]
                 click.echo(tabulate(rows, headers=headers))
 
-            if 'output' in kwargs:
-                output = kwargs['output']
-                del kwargs['output']
+            if "output" in kwargs:
+                output = kwargs["output"]
+                del kwargs["output"]
             else:
-                output = 'table'
+                output = "table"
 
             data = func(*args, **kwargs)
-            if output == 'json':
+            if output == "json":
                 print_json()
             else:
                 print_table()
@@ -43,8 +42,17 @@ def format_result(headers, single=False):
 
 def output_option(*args, **kwargs):
     def decorator_output_option(func):
-        kwargs.setdefault('default', 'table')
-        return option(*(args or ('--output', '-o',)), **kwargs)(func)
+        kwargs.setdefault("default", "table")
+        return option(
+            *(
+                args
+                or (
+                    "--output",
+                    "-o",
+                )
+            ),
+            **kwargs
+        )(func)
 
     return decorator_output_option
 
@@ -53,7 +61,7 @@ def login_required(func):
     @functools.wraps(func)
     def wrapper_login_required(*args, **kwargs):
         if creds_store.get_access_token() is None:
-            click.echo('Not logged in! Run `sonos login` first.')
+            click.echo("Not logged in! Run `sonos login` first.")
             return None
         return func(*args, **kwargs)
 
@@ -64,8 +72,11 @@ def config_required(func):
     @functools.wraps(func)
     def wrapper_config_required(*args, **kwargs):
         if SONOS_CLIENT_ID is None or SONOS_CLIENT_SECRET is None:
-            click.echo('Not configured. '
-                       'Run `sonos config` or set environment variables SONOS_CLIENT_ID and SONOS_CLIENT_SECRET.')
+            click.echo(
+                "Not configured. "
+                "Run `sonos config` or set environment variables "
+                + "SONOS_CLIENT_ID and SONOS_CLIENT_SECRET."
+            )
             return None
         return func(*args, **kwargs)
 
@@ -79,8 +90,12 @@ def auto_refresh_token(client):
             try:
                 return func(*args, **kwargs)
             except TokenExpiredError:
-                token = client.refresh_token(REFRESH_TOKEN_URL,
-                                             auth=requests.auth.HTTPBasicAuth(SONOS_CLIENT_ID, SONOS_CLIENT_SECRET))
+                token = client.refresh_token(
+                    REFRESH_TOKEN_URL,
+                    auth=requests.auth.HTTPBasicAuth(
+                        SONOS_CLIENT_ID, SONOS_CLIENT_SECRET
+                    ),
+                )
                 client.token = token
                 creds_store.save_access_token(token)
                 return func(*args, **kwargs)
