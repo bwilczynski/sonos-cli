@@ -4,7 +4,7 @@ nox.options.sessions = ["lint"]
 
 locations = "sonos", "noxfile.py"
 
-DEFAULT_PYTHON = "3.8"
+DEFAULT_PYTHON = "3.7"
 
 
 @nox.session(python=DEFAULT_PYTHON)
