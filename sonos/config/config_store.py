@@ -1,6 +1,6 @@
 from sonos.config import local_store
 
-CONFIG_FILE = 'config.json'
+CONFIG_FILE = "config.json"
 
 
 def save_config(data):

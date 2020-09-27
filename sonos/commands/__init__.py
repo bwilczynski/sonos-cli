@@ -9,3 +9,17 @@ from .prev import prev
 from .set import set
 from .status import status
 from .volume import volume
+
+__all__ = [
+    "set_config",
+    "get",
+    "login",
+    "logout",
+    "next",
+    "pause",
+    "play",
+    "prev",
+    "set",
+    "status",
+    "volume",
+]

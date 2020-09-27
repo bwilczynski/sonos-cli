@@ -1,6 +1,6 @@
 from sonos.config import local_store
 
-ACTIVE_HOUSEHOLD_FILE = 'household.json'
+ACTIVE_HOUSEHOLD_FILE = "household.json"
 
 
 def save_active_household(household):
