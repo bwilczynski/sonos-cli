@@ -2,7 +2,7 @@ import os
 
 import setuptools
 
-VERSION = '0.3.5'
+VERSION = '0.3.6'
 DESCRIPTION = 'Sonos Command-Line Tools'
 
 here = os.path.abspath(os.path.dirname(__file__))
