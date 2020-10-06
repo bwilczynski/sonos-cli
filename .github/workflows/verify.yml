@@ -1,7 +1,7 @@
 name: Python package
-on: push
+on: [push]
 jobs:
-  tests:
+  verify:
     runs-on: ubuntu-latest
     strategy:
       matrix:
