@@ -4,17 +4,17 @@ nox.options.sessions = ["lint"]
 
 locations = "sonos", "noxfile.py"
 
-DEFAULT_PYTHON = "3.7"
+PYTHON_INTERPRETERS = ["3.7", "3.8"]
 
 
-@nox.session(python=DEFAULT_PYTHON)
+@nox.session(python=PYTHON_INTERPRETERS)
 def lint(session):
     args = session.posargs or locations
     session.install("flake8", "flake8-black")
     session.run("flake8", *args)
 
 
-@nox.session(python=DEFAULT_PYTHON)
+@nox.session(python=PYTHON_INTERPRETERS)
 def black(session):
     args = session.posargs or locations
     session.install("black")
