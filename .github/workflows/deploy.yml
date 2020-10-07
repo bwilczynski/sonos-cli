@@ -6,49 +6,49 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install setuptools wheel twine
-    - name: Build and publish
-      env:
-        TWINE_USERNAME: __token__
-        TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-      run: |
-        python setup.py sdist bdist_wheel
-        twine upload dist/*
-    homebrew:
-      needs: setup
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-          with:
-            repository: bwilczynski/homebrew-tap
-            fetch-depth: 0
-        - name: Set up Python
-          uses: actions/setup-python@v2
-          with:
-            python-version: '3.x'
-        - name: Install dependencies
-          run: |
-            python -m pip install --upgrade pip
-            pip install sonos-cli homebrew-pypi-poet
-        - name: Generate Homebrew stanza for pypi package
-          run: |
-            poet -f sonos-cli | \
-              sed -e 's/desc "Shiny new formula"/desc "Strava Command-Line Tools"/g' \
-                  -e 's|false|system "#{bin}/sonos", "--version"|g' | \
-                  tee Formula/sonos-cli.rb
-        - name: Commit & push
-          run: |
-            git config --global user.name "github-actions[bot]"
-            git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install setuptools wheel twine
+      - name: Build and publish
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+        run: |
+          python setup.py sdist bdist_wheel
+          twine upload dist/*
+  homebrew:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: bwilczynski/homebrew-tap
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install sonos-cli homebrew-pypi-poet
+      - name: Generate Homebrew stanza for pypi package
+        run: |
+          poet -f sonos-cli | \
+            sed -e 's/desc "Shiny new formula"/desc "Strava Command-Line Tools"/g' \
+                -e 's|false|system "#{bin}/sonos", "--version"|g' | \
+                tee Formula/sonos-cli.rb
+      - name: Commit & push
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-            git add Formula/sonos-cli.rb
-            git commit -m "Update sonos-cli"
-            git push
+          git add Formula/sonos-cli.rb
+          git commit -m "Update sonos-cli"
+          git push
